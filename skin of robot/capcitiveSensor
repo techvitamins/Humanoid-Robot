@@ -1,0 +1,19 @@
+from nanpy import (ArduinoApi, SerialManager)
+from nanpy import CapacitiveSensor
+from gpiozero import LED
+
+connection = SerialManager()
+a = ArduinoApi(connection=connection)
+
+sensor1 = CapacitiveSensor(4,2)
+sensor2 = CapacitiveSensor(4,5)
+led = LED(13)
+while True:
+    x = sensor1.capacitiveSensorRaw(50)
+    y = sensor2.capacitiveSensorRaw(100)
+    print x,y
+
+    if x >= 1000:
+        led.on()
+    elif y >= 2000:
+        led.off()
